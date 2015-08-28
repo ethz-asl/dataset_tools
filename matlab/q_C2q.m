@@ -1,20 +1,10 @@
 % ------------------------------------------------------------------------------
-% Function : Rotation Matrix to Quaternion
-% Project  : Tools
-% Author   : ETH (www.eth.ch), Janosch Nikolic
-% Version  : V01 13 FEB 2013 Initial version
-%            V02 01 APR 2014 Check that R is a proper rotation matrix. If
-%                not, caller must make sure det(R) = 1, if det(R) = -1,
-%                consider R = -R.
-%            V03 02 APR 2014 Formatting
-%                27MAY2015 Realized in last line that scalar part is negated.
-%                          Why? Not change to avoid problems in dependent code.
-% Comment  : 
-% Status   : 
-%
-% R        : 3x3 input (proper) rotation matrix in SO(3)
-%
-% q        : 4x1 quaternion [qx; qy; qz; qw]
+% Function : dcm to quaternion
+% Project  : IJRR MAV Datasets
+% Author   : www.asl.ethz.ch
+% Version  : V01  28AUG2015 Initial version.
+% Comment  :
+% Status   : under review
 % ------------------------------------------------------------------------------
 
 function q = q_C2q(C)

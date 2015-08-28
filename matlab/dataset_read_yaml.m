@@ -1,10 +1,10 @@
 % ------------------------------------------------------------------------------
-% Function : Read ASL Dataset Yaml file, convert numerical values
-% Project  :
-% Author   : ASL, ETH
-% Version  : V01  07JUL2015 Initial version.
+% Function : read yaml file, convert numerical entries
+% Project  : IJRR MAV Datasets
+% Author   : www.asl.ethz.ch
+% Version  : V01  28AUG2015 Initial version.
 % Comment  :
-% Status   : 
+% Status   : under review
 % ------------------------------------------------------------------------------
 
 
@@ -28,13 +28,6 @@ for iField=1:NFieldsYaml
     
     yamlContent = setfield(yamlContent, fieldNamesYaml{iField}, data);
   end
-end
-
-switch(yamlContent.sensor_type)
-  case 'imu'
-
-  otherwise
-    disp(' >>> unknown sensor type detected');
 end
 
 end

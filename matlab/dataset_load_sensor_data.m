@@ -1,10 +1,10 @@
 % ------------------------------------------------------------------------------
-% Function : Load sensor data
-% Project  : ASL Datasets
-% Author   : ASL, ETH
-% Version  : V01  08JUL2015 Initial version.
+% Function : load sensor data
+% Project  : IJRR MAV Datasets
+% Author   : www.asl.ethz.ch
+% Version  : V01  28AUG2015 Initial version.
 % Comment  :
-% Status   : 
+% Status   : under review
 % ------------------------------------------------------------------------------
 
 

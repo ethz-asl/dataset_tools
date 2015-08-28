@@ -1,14 +1,12 @@
 % ------------------------------------------------------------------------------
-% Function : Load Dataset Test Script
-% Project  :
+% Function : minimal load dataset test script
+% Project  : IJRR MAV Datasets
 % Author   : www.asl.ethz.ch
-% Version  : V01  07JUL2015 Initial version.
+% Version  : V01  28AUG2015 Initial version.
 % Comment  :
-% Status   : 
+% Status   : under review
 % ------------------------------------------------------------------------------
 
-clc;
-close all;
 
 % set dataset folder
 datasetPath = ...
@@ -16,8 +14,10 @@ datasetPath = ...
 
 disp(' ');
 disp([' > dataset_load_test [', datasetPath, ']']);
-disp(' ');
 
+assert(exist(datasetPath, 'dir') > 0, ...
+  ' > Dataset folder does not exist, Please set datasetPath.');
+  
 % load dataset
 dataset = dataset_load(datasetPath);
 

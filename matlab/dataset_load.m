@@ -1,10 +1,10 @@
 % ------------------------------------------------------------------------------
-% Function : Load ASL Dataset
-% Project  :
-% Author   : ASL, ETH
-% Version  : V01  06JUL2015 Initial version.
+% Function : load dataset
+% Project  : IJRR MAV Datasets
+% Author   : www.asl.ethz.ch
+% Version  : V01  28AUG2015 Initial version.
 % Comment  :
-% Status   : 
+% Status   : under review
 % ------------------------------------------------------------------------------
 
 
@@ -13,14 +13,11 @@ function dataset = dataset_load(datasetPath)
 dataset = [];
 dataset.body = {};
 
-disp(' ');
-disp([' > dataset_load [', datasetPath, ']']);
-disp(' ');
-
 
 %% scan for bodys
 
-disp(' >> scanning dataset');
+disp('');
+disp(' >> scanning dataset...');
 datasetFolderContent = dir(datasetPath);
 NFolderBody = length(datasetFolderContent);
 for iFolderBody = 1:NFolderBody
@@ -32,8 +29,7 @@ for iFolderBody = 1:NFolderBody
     
     % check if sensor.yaml exists
     if(exist(bodyYamlFilename, 'file') == 2)
-      disp(' ');
-      disp([' - body detected [', bodyName, ']']);
+      disp(['    body detected [', bodyName, ']']);
       dataset.body{end+1}.name = bodyName;
       dataset.body{end}.sensor = {};
       
@@ -55,14 +51,13 @@ for iFolderBody = 1:NFolderBody
             sensorType = dataset.body{end}.sensor{end}.sensor_type;
             dataset.body{end}.sensor{end}.data = ...
               dataset_load_sensor_data(sensorType, sensorFolderName);
-            disp(['   - sensor detected [', sensorName, '], [' sensorType ']']);
+            disp(['     sensor detected [', sensorName, '], [' sensorType ']']);
           end
         end
       end
     end
   end
 end
-disp(' ');
 
 assert(~isempty(dataset.body));
 

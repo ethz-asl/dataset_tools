@@ -1,16 +1,10 @@
 % ------------------------------------------------------------------------------
-% Function : Plots a pose (position and attitude) for debugging
-% Project  : Tools
-% Author   : ETH (www.eth.ch), Janosch Nikolic
-% Version  : V01 03 JAN 2013 Initial version
-%            V02 02 APR 2014 Revised code
-% Comment  : 
-% Status   : 
-%
-% p_WB_W   : 3x1 position vector
-% q_BW     : 4x1 attitude quaternion
-% caption  : string for naming frame, e.g. 'B'
-% scale    : scale of the frame, e.g. 0.1
+% Function : plot pose
+% Project  : IJRR MAV Datasets
+% Author   : www.asl.ethz.ch
+% Version  : V01  28AUG2015 Initial version.
+% Comment  :
+% Status   : under review
 % ------------------------------------------------------------------------------
 
 function q_plotPose(p_WB_W, q_BW, caption, scale)

@@ -1,10 +1,10 @@
 % ------------------------------------------------------------------------------
-% Function : Plot ASL Dataset
-% Project  : ASL Datasets
-% Author   : ASL, ETH
-% Version  : V01  07JUL2015 Initial version.
+% Function : plot dataset
+% Project  : IJRR MAV Datasets
+% Author   : www.asl.ethz.ch
+% Version  : V01  28AUG2015 Initial version.
 % Comment  :
-% Status   : 
+% Status   : under review
 % ------------------------------------------------------------------------------
 
 
