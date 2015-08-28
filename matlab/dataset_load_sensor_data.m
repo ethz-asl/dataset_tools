@@ -32,7 +32,10 @@ switch(sensorType)
     data.p_RS_R = [csvRawData{2}, csvRawData{3}, csvRawData{4}]';
     
   case 'visual-inertial'
-    csvRawData = textscan(fileID, '%u64,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f', 'headerLines', 1);
+    csvRawData = ...
+        textscan(fileID, ....
+                 '%u64,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f', ...
+                 'headerLines', 1);
     data.timestamp_m = csvRawData{1}';
     data.p_RS_R = [csvRawData{2}, csvRawData{3}, csvRawData{4}]';
     data.q_SR = [csvRawData{5}, csvRawData{6}, csvRawData{7}, csvRawData{8}]';
