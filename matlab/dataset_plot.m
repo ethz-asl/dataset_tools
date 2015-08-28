@@ -8,15 +8,13 @@
 % ------------------------------------------------------------------------------
 
 
-function asl_dataset_plot(dataset)
-
-addpath('~/git/tools/matlab_tools/quaternion');
+function dataset_plot(dataset)
 
 disp(' >> plotting bodys');
 NBody = length(dataset.body);
 for iBody = 1:NBody
   figure();
-  asl_dataset_plot_body(dataset.body{iBody});
+  dataset_plot_body(dataset.body{iBody});
   axis equal;
 end
 

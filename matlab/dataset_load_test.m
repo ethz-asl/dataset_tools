@@ -1,23 +1,25 @@
 % ------------------------------------------------------------------------------
-% Function : Load ASL Dataset Test Script
+% Function : Load Dataset Test Script
 % Project  :
-% Author   : ASL, ETH
+% Author   : www.asl.ethz.ch
 % Version  : V01  07JUL2015 Initial version.
 % Comment  :
 % Status   : 
 % ------------------------------------------------------------------------------
 
+clc;
+close all;
 
 % set dataset folder
 datasetPath = ...
-  '~/nas_mapbox/Datasets/Euroc-Datasets/asl_dataset_format/datasets/machine_hall_01';
+  '~/nas_mapbox/Datasets/Euroc-Datasets/ijrr_dataset_paper/machine_hall/01_easy';
 
 disp(' ');
-disp([' > asl_dataset_load_test [', datasetPath, ']']);
+disp([' > dataset_load_test [', datasetPath, ']']);
 disp(' ');
 
 % load dataset
-dataset = asl_dataset_load(datasetPath);
+dataset = dataset_load(datasetPath);
 
 % plot dataset
-asl_dataset_plot(dataset);
+dataset_plot(dataset);

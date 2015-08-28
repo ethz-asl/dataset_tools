@@ -8,15 +8,13 @@
 % ------------------------------------------------------------------------------
 
 
-function dataset = asl_dataset_load(datasetPath)
-
-addpath('~/git/yamlmatlab');
+function dataset = dataset_load(datasetPath)
 
 dataset = [];
 dataset.body = {};
 
 disp(' ');
-disp([' > asl_dataset_load [', datasetPath, ']']);
+disp([' > dataset_load [', datasetPath, ']']);
 disp(' ');
 
 
@@ -52,11 +50,11 @@ for iFolderBody = 1:NFolderBody
           % check if sensor.yaml exists
           if(exist(sensorYamlFilename, 'file') == 2)
             dataset.body{end}.sensor{end+1} = ...
-              asl_dataset_read_yaml(sensorYamlFilename);
+              dataset_read_yaml(sensorYamlFilename);
             dataset.body{end}.sensor{end}.name = sensorName;
-            sensorType = dataset.body{end}.sensor{end}.type;
+            sensorType = dataset.body{end}.sensor{end}.sensor_type;
             dataset.body{end}.sensor{end}.data = ...
-              asl_dataset_load_sensor_data(sensorType, sensorFolderName);
+              dataset_load_sensor_data(sensorType, sensorFolderName);
             disp(['   - sensor detected [', sensorName, '], [' sensorType ']']);
           end
         end
