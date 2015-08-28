@@ -1,0 +1,19 @@
+// -----------------------------------------------------------------------------
+// Function : readme for MATLAB dataset tools
+// Project  : IJRR MAV Datasets
+// Author   : www.asl.ethz.ch
+// Version  : V01  28AUG2015 Initial version.
+// Comment  :
+// Status   : under review
+// -----------------------------------------------------------------------------
+
+
+Getting started
+---------------
+
+1.) open MATLAB
+2.) cd to the dataset_tools/matlab folder
+3.) open "dataset_load_test.m"
+4.) select the dataset you would like to process (-> datasetPath)
+5.) run "dataset_load_test.m"
+
