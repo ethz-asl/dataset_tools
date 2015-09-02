@@ -29,6 +29,8 @@ for iSensor = 1:NSensor
   else
     disp(['     detected data without body-sensor extrinsics [', ...
       sensor.name, ']']);
-end
+  end
+
+  axis equal;
 
 end
