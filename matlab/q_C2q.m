@@ -55,7 +55,9 @@ else
     end
 end
 
-q = [qw;qx;qy;qz];
+q = [-qw;qx;qy;qz];
+
+q = q_min(q);
     
 end
 

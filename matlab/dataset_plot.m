@@ -23,6 +23,12 @@ for iBody = 1:NBody
   figure();
   dataset_plot_body_trajectory(dataset.body{iBody});
   title('body trajectory');
+  
+  % plot gyroscope and accelerometer measurements
+  dataset_plot_inertial_sensor_measurements(dataset.body{iBody});
+  
+  % plot target observations
+  dataset_plot_target_observations(dataset.body{iBody});
 end
 
 disp(' ');

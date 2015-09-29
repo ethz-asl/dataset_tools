@@ -58,6 +58,45 @@ switch(sensorType)
     data.ba_S = [csvRawData{15}, csvRawData{16}, csvRawData{17}]';
     fclose(fileID);
     
+  case 'camera_target'
+      
+    % target points
+    csvFilenameTarget = [sensorFolderName, '/data_target.csv'];
+    fileIDTarget = fopen(csvFilenameTarget);
+    csvRawDataTarget = textscan(fileIDTarget, '%f,');
+    NTargetPoints = length(csvRawDataTarget{1}) / 3;
+    data.targetPoints_ = reshape(csvRawDataTarget{1}, NTargetPoints, 3)';
+    fclose(fileIDTarget);
+    
+    % undistorted measurements
+    csvFilenameUndistorted = [sensorFolderName, '/data_undistorted.csv'];
+    fileIDUndistorted = fopen(csvFilenameUndistorted);
+    csvRawDataUndistorted = textscan(fileIDUndistorted, ...
+                                     ['%u64', repmat(',%f', 1, NTargetPoints * 3), '\n'], 'headerLines', 0);
+	X = [csvRawDataUndistorted{2:end}];
+	NFrames = length(csvRawDataUndistorted{1});
+    data.undistortedMeasurements_ = {};
+    for nf = 1:NFrames
+        data.undistortedMeasurements_{nf} = reshape(X(nf, :), 3, NTargetPoints);
+    end
+    data.t_m_ = [csvRawDataUndistorted{1}]';
+    fclose(fileIDUndistorted);
+    
+    % pose estimates T_t_c (camera to target)
+    csvFilenamePoseEstimates = [sensorFolderName, '/data_pose_estimates.csv'];
+    fileIDPoseEstimates = fopen(csvFilenamePoseEstimates);
+    csvRawDataPoseEstimates = textscan(fileIDPoseEstimates, ...
+                                     ['%u64', repmat(',%f', 1, 4*4), '\n'], 'headerLines', 0);
+	X = [csvRawDataPoseEstimates{2:end}];
+	NFrames = length(csvRawDataUndistorted{1});
+    for nf = 1:NFrames
+        data.T_TC_{nf} = reshape(X(nf, :), 4, 4)';
+        data.q_TC_(:, nf) = q_C2q(data.T_TC_{nf}(1:3, 1:3));
+        data.p_TC_T_(:, nf) = data.T_TC_{nf}(1:3, 4);
+    end
+    data.t_m_ = [csvRawDataPoseEstimates{1}]';
+    fclose(fileIDPoseEstimates);
+    
   case 'pointcloud'
     data = [];
     
