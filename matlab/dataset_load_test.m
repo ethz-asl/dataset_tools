@@ -7,6 +7,7 @@
 % Status   : under review
 % ------------------------------------------------------------------------------
 
+addpath('quaternion');
 
 % set dataset folder
 datasetPath = ...
