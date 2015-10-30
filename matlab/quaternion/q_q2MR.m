@@ -14,27 +14,20 @@
 %            Indirect Kalman Filter for 3D Attitude Estimation.
 % ------------------------------------------------------------------------------
 
-function ML = q_q2MR(q)
+function MR = q_q2MR(q)
 
 % check if input dimensions are correct
 si = size(q);
 assert(si(1)==4);
 assert(si(2)==1);
 
-q0 = q(1);
-q1 = q(2);
-q2 = q(3);
-q3 = q(4);
-
-% TODO(nikolicj) verify
-ML = [q0, -q1, -q2, -q3;
-      q1, q0, -q3, q2;
-      q2, q3, q0, -q1;
-      q3, -q2, q1, q0];
-
-% ML = [q0, -q1, -q2, -q3;
-%       q1, q0, q3, -q2;
-%       q2, -q3, q0, q1;
-%       q3, q2, -q1, q0];
+q1 = q(1);
+q2 = q(2);
+q3 = q(3);
+q4 = q(4);
+MR = [q1, -q2, -q3, -q4;
+      q2, q1, -q4, q3;
+      q3, q4, q1, -q2;
+      q4, -q3, q2, q1];
     
 end

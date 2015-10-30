@@ -9,6 +9,8 @@
 
 function C = q_q2C(q)
 
+assert(q(1) >= 0);
+
 qw = q(1);
 q_ = q(2:4);
 

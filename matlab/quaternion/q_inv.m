@@ -19,6 +19,7 @@ function q = q_inv(p)
 
 % check input dimensions
 assert(size(p,1)==4);
+assert(p(1) >= 0);
 
 N = size(p,2);
 q=zeros(4,N);
