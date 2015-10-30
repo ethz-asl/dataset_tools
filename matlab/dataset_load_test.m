@@ -7,6 +7,7 @@
 % Status   : under review
 % ------------------------------------------------------------------------------
 
+addpath('quaternion');
 
 % set dataset folder
 datasetPath = ...
@@ -17,7 +18,7 @@ disp([' > dataset_load_test [', datasetPath, ']']);
 
 assert(exist(datasetPath, 'dir') > 0, ...
   ' > Dataset folder does not exist, Please set datasetPath.');
-  
+
 % load dataset
 dataset = dataset_load(datasetPath);
 

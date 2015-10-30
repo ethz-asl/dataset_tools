@@ -9,9 +9,11 @@
 
 function C = q_q2C(q)
 
+assert(q(1) >= 0);
+
 qw = q(1);
 q_ = q(2:4);
 
-C = qw^2*eye(3)+2*qw*skewOp(q_)+skewOp(q_)^2 + q_*q_';
+C = (2*qw^2 - 1)*eye(3) - 2*qw*skewOp(q_) + 2*(q_*q_');
 
 end
