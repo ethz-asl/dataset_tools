@@ -16,7 +16,7 @@ for iSensor = 1:NSensor
   if(strcmp(sensor.sensor_type, 'imu'))
     a = body.sensor{iSensor}.data.a;
     omega = body.sensor{iSensor}.data.omega;
-    t = double(body.sensor{iSensor}.data.timestamp_m - body.sensor{iSensor}.data.timestamp_m(1));
+    t = double(body.sensor{iSensor}.data.t - body.sensor{iSensor}.data.t(1));
     
     figure();
     subplot(2, 1, 1);
