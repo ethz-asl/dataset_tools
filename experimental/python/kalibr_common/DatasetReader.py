@@ -20,11 +20,10 @@ class BagDatasetReaderIterator(object):
         return self.dataset.getMessage(idx)
 
 class BagDatasetReader(object):
-    def __init__(self, bagfile, topic, output_folder=None, bag_from_to=None):
+    def __init__(self, bagfile, topic, bag_from_to=None):
         self.bagfile = bagfile
         self.topic = topic
         self.bag = rosbag.Bag(bagfile)
-        self.output_folder = output_folder
         self.uncompress = None
         if topic is None:
             raise RuntimeError("Please pass in a topic name referring to a stream in the bag file\n{0}".format(self.bag));
@@ -41,7 +40,7 @@ class BagDatasetReader(object):
         self.indices = np.arange(len(self.index))
 
         #sort the indices by header.stamp
-        self.indices = self. sortByTime(self.indices)
+        self.indices = self.sortByTime(self.indices)
 
         #go through the bag and remove the indices outside the timespan [bag_start_time, bag_end_time]
         if bag_from_to:
@@ -102,25 +101,14 @@ class BagDatasetReader(object):
 
     def numMessages(self):
         return len(self.indices)
+    
+    def getMessage(self,idx):
+        topic, data, stamp = self.bag._read_message(self.index[idx].position)
 
-    def writeBodyLine(self, message, writer):
-            writer.writerow(message)
-                
-    def writeToCSV(self):
-        
-        os.makedirs(self.output_folder)
-        
-        # prepare progess bar
-        iProgress = pro.Progress2(self.numMessages())
+        return data
+    
+    def getMessageType(self):
+        type_info = self.bag.get_type_and_topic_info()
 
-        print "Extracting {0} messages from topic {1}".format(self.numMessages(), self.topic)
-        iProgress.sample()
-
-        with open("{0}/data.csv".format(self.output_folder), 'wb') as file:
-            spamwriter = csv.writer(file, delimiter=',')
-            self.writeHeader(spamwriter)
-            for data in self:
-                self.writeBodyLine(data,spamwriter)
-                iProgress.sample() 
-            print "\r      done.                                                          "
-        print
+        return type_info.topics[self.topic].msg_type
+    
