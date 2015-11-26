@@ -24,13 +24,13 @@ class DataWriter(object):
 class ImuDataWriter(DataWriter):
 
     def writeHeader(self, data_length):
-        self.writer.writerow("#8 header rows")
-        self.writer.writerow("#{0} data rows".format(data_length))
-        self.writer.writerow("#data extracted from ros Imu message http://docs.ros.org/api/sensor_msgs/html/msg/Imu.html")
-        self.writer.writerow("#data format:")
-        self.writer.writerow("#    column 0: timestamp [ns]")
-        self.writer.writerow("#    columns 1 to 3: angular velocity, using a fixed-axis representation with rotation order x,y,z [rad s^-1]")
-        self.writer.writerow("#    columns 4 to 6: linear acceleration [m s^-2]")                      
+        self.writer.writerow(["#8 header rows"])
+        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#data extracted from ros Imu message http://docs.ros.org/api/sensor_msgs/html/msg/Imu.html"])
+        self.writer.writerow(["#data format:"])
+        self.writer.writerow(["#    column 0: timestamp [ns]"])
+        self.writer.writerow(["#    columns 1 to 3: angular velocity"," fixed axis roll"," pitch"," yaw. rotation order XYZ [rad s^-1]"])
+        self.writer.writerow(["#    columns 4 to 6: linear acceleration [m s^-2]"])                      
         self.writer.writerow(["#timestamp", "w_SB_x", "w_SB_y", "w_SB_z", "a_SB_x", "a_SB_y", "a_SB_z"])
         
     def writeBodyLine(self,message):
@@ -44,12 +44,12 @@ class ImuDataWriter(DataWriter):
 class ImageDataWriter(DataWriter):
 
     def writeHeader(self, data_length):
-        self.writer.writerow("#7 header rows")
-        self.writer.writerow("#{0} data rows".format(data_length))
-        self.writer.writerow("#data extracted from ros Image message http://docs.ros.org/api/sensor_msgs/html/msg/Image.html")
-        self.writer.writerow("#data format:")
-        self.writer.writerow("#    column 0: timestamp [ns]")
-        self.writer.writerow("#    column 1: filename (file can be found in ./data/ directory)")
+        self.writer.writerow(["#7 header rows"])
+        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#data extracted from ros Image message http://docs.ros.org/api/sensor_msgs/html/msg/Image.html"])
+        self.writer.writerow(["#data format:"])
+        self.writer.writerow(["#    column 0: timestamp [ns]"])
+        self.writer.writerow(["#    column 1: filename (file can be found in ./data/ directory)"])
         self.writer.writerow(["#timestamp", "filename"])
         os.makedirs("{0}/data/".format(self.output_folder))
         
@@ -83,14 +83,14 @@ class ViconDataWriter(DataWriter):
 class OdomDataWriter(DataWriter):
 
     def writeHeader(self, data_length):
-        self.writer.writerow("#9 header rows")
-        self.writer.writerow("#{0} data rows".format(data_length))
-        self.writer.writerow("#data extracted from ros Odometry message http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html")
-        self.writer.writerow("#data format:")
-        self.writer.writerow("#    column 0: timestamp [ns]")
-        self.writer.writerow("#    columns 1 to 3: postion [m]")
-        self.writer.writerow("#    columns 4 to 7: active Hamilton unit quaternion with scalar term first (WXYZ)")
-        self.writer.writerow("#    columns 8 to 43: 6x6 covariance matrix. In order, the parameters are: (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis) using a fixed-axis representation")
+        self.writer.writerow(["#9 header rows"])
+        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#data extracted from ros Odometry message http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html"])
+        self.writer.writerow(["#data format:"])
+        self.writer.writerow(["#    column 0: timestamp [ns]"])
+        self.writer.writerow(["#    columns 1 to 3: postion [m]"])
+        self.writer.writerow(["#    columns 4 to 7: active Hamilton unit quaternion with scalar term first (WXYZ)"])
+        self.writer.writerow(["#    columns 8 to 43: 6x6 covariance matrix. In order", " the parameters are: (x"," y"," z"," roll"," pitch"," yaw) rotation uses fixed axes with XYZ rotation order"])
         self.writer.writerow(["#timestamp", 
                          "p_G_B_x", "p_G_B_y", "p_G_B_z", 
                          "q_G_B_w", "q_G_B_x", "q_G_B_y", "q_G_B_z",
@@ -113,12 +113,12 @@ class OdomDataWriter(DataWriter):
 class LeicaDataWriter(DataWriter):
     
     def writeHeader(self, data_length):
-        self.writer.writerow("#7 header rows")
-        self.writer.writerow("#{0} data rows".format(data_length))
-        self.writer.writerow("#data extracted from ros PointStamped message http://docs.ros.org/api/geometry_msgs/html/msg/PointStamped.html")
-        self.writer.writerow("#data format:")
-        self.writer.writerow("#    column 0: timestamp [ns]")
-        self.writer.writerow("#    columns 1 to 3: position (XYZ) [m]")                    
+        self.writer.writerow(["#7 header rows"])
+        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#data extracted from ros PointStamped message http://docs.ros.org/api/geometry_msgs/html/msg/PointStamped.html"])
+        self.writer.writerow(["#data format:"])
+        self.writer.writerow(["#    column 0: timestamp [ns]"])
+        self.writer.writerow(["#    columns 1 to 3: position (XYZ) [m]"])                    
         self.writer.writerow(["#timestamp", "p_LG_LB_x", "p_LG_LB_y", "p_LG_LB_z"])
         
     def writeBodyLine(self,message):
@@ -131,12 +131,12 @@ class LeicaDataWriter(DataWriter):
 class LeicaStatusWriter(DataWriter):
 
     def writeHeader(self, data_length):
-        self.writer.writerow("#7 header rows")
-        self.writer.writerow("#{0} data rows".format(data_length))
-        self.writer.writerow("#data extracted from leica_interface/Status message")
-        self.writer.writerow("#data format:")
-        self.writer.writerow("#    column 0: timestamp [ns]")
-        self.writer.writerow("#    column 1: leica prism tracking status [True/False]")                   
+        self.writer.writerow(["#7 header rows"])
+        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#data extracted from leica_interface/Status message"])
+        self.writer.writerow(["#data format:"])
+        self.writer.writerow(["#    column 0: timestamp [ns]"])
+        self.writer.writerow(["#    column 1: leica prism tracking status [True/False]"])                   
         self.writer.writerow(["#timestamp", "tracking"])
         
     def writeBodyLine(self,message):
