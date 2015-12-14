@@ -15,7 +15,8 @@ class CSVWriter(object):
                         "sensor_msgs/Image" : ImageDataWriter,
                         "geometry_msgs/PointStamped" : LeicaDataWriter,
                         "leica_interface/Status" : LeicaStatusWriter,
-                        "nav_msgs/Odometry" : OdomDataWriter}
+                        "nav_msgs/Odometry" : OdomDataWriter,
+                          "mav_msgs/Actuators" : ActuatorDataWriter}
         
         message_type = self.dataset.getMessageType();
 
@@ -35,7 +36,7 @@ class CSVWriter(object):
         print "Extracting {0} messages from topic {1}".format(self.dataset.numMessages(), self.topic)
         iProgress.sample()
 
-        self.data_writer.writeHeader(self.dataset.numMessages())
+        self.data_writer.writeHeader(self.dataset)
         for data in self.dataset:
             self.data_writer.writeBodyLine(data)
             iProgress.sample() 

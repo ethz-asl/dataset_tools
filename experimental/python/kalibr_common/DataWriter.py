@@ -1,7 +1,6 @@
 import cv
 import cv_bridge
 import cv2
-import os
 import numpy as np
 import csv
 import os
@@ -23,9 +22,9 @@ class DataWriter(object):
     
 class ImuDataWriter(DataWriter):
 
-    def writeHeader(self, data_length):
+    def writeHeader(self, dataset):
         self.writer.writerow(["#8 header rows"])
-        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#{0} data rows".format(dataset.numMessages())])
         self.writer.writerow(["#data extracted from ros Imu message http://docs.ros.org/api/sensor_msgs/html/msg/Imu.html"])
         self.writer.writerow(["#data format:"])
         self.writer.writerow(["#    column 0: timestamp [ns]"])
@@ -43,9 +42,9 @@ class ImuDataWriter(DataWriter):
 
 class ImageDataWriter(DataWriter):
 
-    def writeHeader(self, data_length):
+    def writeHeader(self, dataset):
         self.writer.writerow(["#7 header rows"])
-        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#{0} data rows".format(dataset.numMessages())])
         self.writer.writerow(["#data extracted from ros Image message http://docs.ros.org/api/sensor_msgs/html/msg/Image.html"])
         self.writer.writerow(["#data format:"])
         self.writer.writerow(["#    column 0: timestamp [ns]"])
@@ -82,9 +81,9 @@ class ViconDataWriter(DataWriter):
 
 class OdomDataWriter(DataWriter):
 
-    def writeHeader(self, data_length):
+    def writeHeader(self, dataset):
         self.writer.writerow(["#9 header rows"])
-        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#{0} data rows".format(dataset.numMessages())])
         self.writer.writerow(["#data extracted from ros Odometry message http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html"])
         self.writer.writerow(["#data format:"])
         self.writer.writerow(["#    column 0: timestamp [ns]"])
@@ -112,9 +111,9 @@ class OdomDataWriter(DataWriter):
 
 class LeicaDataWriter(DataWriter):
     
-    def writeHeader(self, data_length):
+    def writeHeader(self, dataset):
         self.writer.writerow(["#7 header rows"])
-        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#{0} data rows".format(dataset.numMessages())])
         self.writer.writerow(["#data extracted from ros PointStamped message http://docs.ros.org/api/geometry_msgs/html/msg/PointStamped.html"])
         self.writer.writerow(["#data format:"])
         self.writer.writerow(["#    column 0: timestamp [ns]"])
@@ -130,9 +129,9 @@ class LeicaDataWriter(DataWriter):
 
 class LeicaStatusWriter(DataWriter):
 
-    def writeHeader(self, data_length):
+    def writeHeader(self, dataset):
         self.writer.writerow(["#7 header rows"])
-        self.writer.writerow(["#{0} data rows".format(data_length)])
+        self.writer.writerow(["#{0} data rows".format(dataset.numMessages())])
         self.writer.writerow(["#data extracted from leica_interface/Status message"])
         self.writer.writerow(["#data format:"])
         self.writer.writerow(["#    column 0: timestamp [ns]"])
@@ -143,4 +142,47 @@ class LeicaStatusWriter(DataWriter):
         
         timestamp = int(1e9 * message.header.stamp.secs + message.header.stamp.nsecs)
 
-        self.writer.writerow([timestamp, message.tracking])        
+        self.writer.writerow([timestamp, message.tracking])
+
+class ActuatorDataWriter(DataWriter):
+
+    def writeHeader(self, dataset):
+
+        #examine first message
+        for data in dataset:
+            num_angles = len(data.angles)
+            num_w = len(data.angular_velocities)
+            num_other = len(data.normalized)
+            break
+
+        self.writer.writerow(["#{0} header rows".format((6+sum([num_angles>0,num_w>0,num_other>0])))])
+        self.writer.writerow(["#{0} data rows".format(dataset.numMessages())])
+        self.writer.writerow(["#data extracted from mav_msgs/Actuators message"])
+        self.writer.writerow(["#data format:"])
+        self.writer.writerow(["#    column 0: timestamp [ns]"])
+
+        self.header_idx = 0
+        self._bulid_header_message(num_angles, "angle [rad]")
+        self._bulid_header_message(num_w, "angular velocity [rad s^-1]")
+        self._bulid_header_message(num_other, "normalized data range [-1 to 1]")
+        header_end = ["#timestamp"] + num_angles*["theta"] + num_w*["w"] + num_other*["n"]
+        self.writer.writerow(header_end)
+
+    def writeBodyLine(self,message):
+
+        timestamp = int(1e9 * message.header.stamp.secs + message.header.stamp.nsecs)
+
+        self.writer.writerow([timestamp] + list(message.angles) + list(message.angular_velocities) + list(message.normalized))
+
+    def _bulid_header_message(self, num_data, data_type_string):
+        if num_data > 0:
+            if num_data == 1:
+                message = "#    column {0} ".format(self.header_idx+1)
+            if num_data > 1:
+                message = "#    column {0} to {1}".format(self.header_idx+1, self.header_idx+num_data)
+
+            message += ": {0}".format(data_type_string)
+            self.writer.writerow([message])
+
+        self.header_idx += num_data
+

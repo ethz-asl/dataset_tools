@@ -1,27 +1,8 @@
 #!/usr/bin/env python
 
 import kalibr_common as kc
-import cv
-import cv2
-import csv
-import os
 import sys
 import argparse
-
-def extractData(topics,sensor_name):
-    
-    sensor = {"imu" : kc.BagImuDatasetReader, 
-              "image" : kc.BagImageDatasetReader, 
-              "leica" : kc.BagLeicaDatasetReader, 
-              "vicon" : kc.BagViconDatasetReader,
-              "odom" : kc.BagOdomDatasetReader}
-    
-    if topics is not None:
-        for iidx, topic in enumerate(topics):
-            output_folder = "{0}/{1}{2}".format(parsed.output_folder, sensor_name, iidx)
-            dataset = sensor[sensor_name](parsed.bag, topic, output_folder)
-            
-            dataset.writeToCSV()
 
 #setup the argument list
 parser = argparse.ArgumentParser(description='Extract a ROS bag containing a image and imu topics.')
