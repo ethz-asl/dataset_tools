@@ -71,8 +71,6 @@ def main(argv):
         print "finished iterating through input bag"
         print "output bag written"
         print ""
-        print "if errors occurred, please email joern.rehder@mavt.ethz.ch"
-        print ""
         outbag.close()
 
 if __name__ == "__main__":
