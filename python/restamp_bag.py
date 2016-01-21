@@ -45,7 +45,7 @@ def main(argv):
     print 'input file:  ', inputfile
     print 'output file: ', outputfile
     print ""
-    print "starting synchronization (may take a while)"
+    print "starting restamping (may take a while)"
     print ""
 
     outbag = rosbag.Bag(outputfile, 'w')
@@ -71,7 +71,7 @@ def main(argv):
         print "finished iterating through input bag"
         print "output bag written"
         print ""
-        print "if errors occurred, please call +41 (0)44 632 99 65"
+        print "if errors occurred, please email joern.rehder@mavt.ethz.ch"
         print ""
         outbag.close()
 
